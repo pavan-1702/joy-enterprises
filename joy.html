@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Joy Enterprises - Premium Products</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #5e35b1;
+      --accent-color: #f39c12;
+      --light-color: #ecf0f1;
+      --dark-color: #2c3e50;
+      --text-color: #333;
+      --text-light: #7f8c8d;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f9f9f9;
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .header {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    }
+
+    .logo {
+      height: 60px;
+      width: auto;
+    }
+
+    .name {
+      color: var(--primary-color);
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-left: 1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--secondary-color);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: var(--secondary-color);
+      bottom: -5px;
+      left: 0;
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: var(--primary-color);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    .product-section {
+      padding: 4rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: var(--primary-color);
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      width: 80px;
+      height: 4px;
+      background: var(--secondary-color);
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 250px;
+      object-fit: contain;
+      padding: 1rem;
+      background: #f8f8f8;
+      border-bottom: 1px solid #eee;
+    }
+
+    .product-content {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+    }
+
+    .product-description {
+      color: var(--text-light);
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .product-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--secondary-color);
+      margin-bottom: 1.5rem;
+    }
+
+    .buy-btn {
+      background: var(--secondary-color);
+      color: white;
+      border: none;
+      padding: 0.8rem;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: auto;
+    }
+
+    .buy-btn:hover {
+      background: #212121;
+    }
+
+    .see-more-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 3rem;
+    }
+
+    .see-more-btn {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .see-more-btn:hover {
+      background: #1a252f;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .see-more-btn i {
+      transition: transform 0.3s;
+    }
+
+    .see-more-btn:hover i {
+      transform: translateX(5px);
+    }
+
+    /* Mobile Menu */
+    @media (max-width: 768px) {
+      .header {
+        flex-wrap: wrap;
+        padding: 1rem;
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem 0;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+            html {
+    scroll-behavior: smooth;
+  }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo-container">
+      <div style="display: flex; align-items: center;">
+        <img src="images/WhatsApp Image 2025-06-21 at 16.19.31_091332d8.jpg" class="logo">
+        <h1 class="name">JOY Enterprises</h1>
+      </div>
+
+      <!-- Hamburger Menu -->
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <!-- Navigation Links -->
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="#footer">Contact</a></li>
+    </ul>
+  </div>
+
+  <div class="product-section">
+    <h2 class="section-title">Our Featured Products</h2>
+    <div class="product-grid">
+      <!-- Product Card -->
+      <div class="product-card">
+        <img src="images/1000187826-Picsart-AiImageEnhancer (2).png" alt="Stainless steel salt and pepper grinder" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Stainless Steel Salt & Pepper Grinder</h3>
+          <p class="product-description">Premium quality adjustable grinder with ceramic mechanism for perfect seasoning.</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link="https://amzn.in/d/iClDiu7">Buy Now</button>
+        </div>
+      </div>
+
+      <!-- Product Card -->
+      <div class="product-card">
+        <img src="images/chooper.png" alt="Stainless steel strip cutting machine" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Stainless Steel Strip Cutting Machine</h3>
+          <p class="product-description">Industrial-grade cutting machine for precise strip cutting operations.</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link = " https://amzn.in/d/fXgcOM6">Buy Now</button>
+        </div>
+      </div>
+
+      <!-- Product Card -->
+      <div class="product-card">
+        <img src="images/air pump.png" alt="Portable Pressure Electric Air Pump" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Portable Electric Air Pump</h3>
+          <p class="product-description">High-pressure pump for inflatables, air beds, and sports equipment.</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn"  data-link=" https://amzn.in/d/89Njcwb">Buy Now</button>
+        </div>
+      </div>
+
+      <!-- Product Card -->
+      <div class="product-card">
+        <img src="images/51bxC0UlXCL._SL1500_.jpg" alt="4-in-1 Travel Bottle set" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">4-in-1 Travel Bottle Set</h3>
+          <p class="product-description">Leak-proof silicone bottles perfect for toiletries during travel.</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/5vgkXXI">Buy Now</button>
+        </div>
+      </div>
+
+            <div class="product-card">
+        <img src="images/baby car safety.jpg" alt="4-in-1 Travel Bottle set" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Baby car seat cussion</h3>
+          <p class="product-description">Secure and comfortable baby car safety belt for safe travel every time.
+</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/5vgkXXI">Buy Now</button>
+        </div>
+      </div>
+
+            <div class="product-card">
+        <img src="images/picnic met.png" alt="4-in-1 Travel Bottle set" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Picnic Mat</h3>
+          <p class="product-description">Compact and foldable picnic mat – perfect for outdoor travel, beach, or garden use.</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn"  data-link=" https://amzn.in/d/4b4jLLG">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="see-more-container">
+      <button class="see-more-btn" id="see-more-btn">
+        View All Products <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Mobile Menu Toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+    });
+
+    // See More Button - Redirect to products page
+    document.getElementById('see-more-btn').addEventListener('click', () => {
+      window.location.href = 'products.html';
+    });
+
+    // Buy Now buttons - Redirect to product links
+    document.querySelectorAll('.buy-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const link = button.getAttribute('data-link');
+        if (link) {
+          window.open(link, '_blank');
+        } else {
+          // Default action if no link specified
+          alert('Product added to cart!');
+        }
+      });
+    });
+  </script>
+
+    <!-- Footer Section -->
+  <footer style="background-color: var(--primary-color); color: white; padding: 2rem 1rem; text-align: center; margin-top: 4rem;" id = "footer">
+    <div style="max-width: 1200px; margin: auto;">
+      <h3 style="margin-bottom: 1rem; font-size: 1.8rem;">Get in Touch</h3>
+      <p><i class="fas fa-phone-alt"></i> Contact Number: <a href="tel:9898798208" style="color: #f39c12; text-decoration: none;">+91 9898798208</a></p>
+      <p><i class="fas fa-envelope"></i> Email: <a href="mailto:pavanbarvaliya17022006@gmail.com" style="color: #f39c12; text-decoration: none;">pavanbarvaliya17022006@gmail.com</a></p>
+      <p><i class="fas fa-map-marker-alt"></i> Based in Surat, Gujarat, India</p>
+      <div style="margin: 1rem 0;">
+        <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-facebook fa-lg"></i></a>
+        <a href="https://www.instagram.com/joy_enterprise1?igsh=MWk1Y2poMHN0cTRnYg==" style="color: white; margin: 0 10px;"><i class="fab fa-instagram fa-lg"></i></a>
+        <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-linkedin fa-lg"></i></a>
+      </div>
+      <p style="margin-top: 1rem; font-size: 0.9rem; color: #ccc;">&copy; 2018 - 2025 JOY Enterprises. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

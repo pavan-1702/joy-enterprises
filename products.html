@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Products - Joy Enterprises</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #5e35b1;
+      --accent-color: #f39c12;
+      --light-color: #ecf0f1;
+      --dark-color: #2c3e50;
+      --text-color: #333;
+      --text-light: #7f8c8d;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f9f9f9;
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .header {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    }
+
+    .logo {
+      height: 60px;
+      width: auto;
+    }
+
+    .name {
+      color: var(--primary-color);
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-left: 1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--secondary-color);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: var(--secondary-color);
+      bottom: -5px;
+      left: 0;
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: var(--primary-color);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    .products-page {
+      padding: 4rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3rem;
+    }
+
+    .page-title {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      position: relative;
+    }
+
+    .page-title::after {
+      content: '';
+      position: absolute;
+      width: 80px;
+      height: 4px;
+      background: var(--secondary-color);
+      bottom: -10px;
+      left: 0;
+    }
+
+    .product-count {
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 250px;
+      object-fit: contain;
+      padding: 1rem;
+      background: #f8f8f8;
+      border-bottom: 1px solid #eee;
+    }
+
+    .product-content {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+    }
+
+    .product-description {
+      color: var(--text-light);
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .product-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--secondary-color);
+      margin-bottom: 1.5rem;
+    }
+
+    .buy-btn {
+      background: var(--secondary-color);
+      color: white;
+      border: none;
+      padding: 0.8rem;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: auto;
+    }
+
+    .buy-btn:hover {
+      background: #212121;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 3rem;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .back-btn:hover {
+      background: #1a252f;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .back-btn i {
+      margin-right: 0.5rem;
+    }
+
+    /* Mobile Menu */
+    @media (max-width: 768px) {
+      .header {
+        flex-wrap: wrap;
+        padding: 1rem;
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem 0;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .main-content {
+    min-height: calc(100vh - 400px); /* Adjust based on your header/footer height */
+  }
+
+  .footer {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 2rem 1rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .footer-content {
+    max-width: 1200px;
+    margin: auto;
+  }
+
+  .footer a {
+    color: #f39c12;
+    text-decoration: none;
+  }
+
+  .footer a:hover {
+    text-decoration: underline;
+  }
+
+  .social-icons {
+    margin: 1rem 0;
+  }
+
+  .social-icons a {
+    color: white;
+    margin: 0 10px;
+  }
+
+  .copyright {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #ccc;
+  }
+    html {
+    scroll-behavior: smooth;
+  }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo-container">
+      <div style="display: flex; align-items: center;">
+        <img src="images/WhatsApp Image 2025-06-21 at 16.19.31_091332d8.jpg" class="logo">
+        <h1 class="name">JOY Enterprises</h1>
+      </div>
+
+      <!-- Hamburger Menu -->
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <!-- Navigation Links -->
+    <ul class="nav-links" id="nav-links">
+      <li><a href="joy.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="#footer">Contact</a></li>
+    </ul>
+  </div>
+
+  <div class="products-page">
+    <div class="page-header">
+      <h2 class="page-title">All Products</h2>
+      <div class="product-count">Showing 36 products</div>
+    </div>
+
+    <div class="product-grid">
+      <!-- Product Card -->
+      <div class="product-card">
+        <img src="images/1000187826-Picsart-AiImageEnhancer (2).png" alt="Stainless steel salt and pepper grinder" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Stainless Steel Salt & Pepper Grinder</h3>
+          <p class="product-description">Premium quality adjustable grinder with ceramic mechanism for perfect seasoning.</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link="https://amzn.in/d/iClDiu7">Buy Now</button>
+        </div>
+      </div>
+
+      <!-- Product Card -->
+      <div class="product-card">
+        <img src="images/chooper.png" alt="Stainless steel strip cutting machine" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Stainless Steel Strip Cutting Machine</h3>
+          <p class="product-description">Industrial-grade cutting machine for precise strip cutting operations.</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link = " https://amzn.in/d/fXgcOM6">Buy Now</button>
+        </div>
+      </div>
+
+      <!-- Product Card -->
+      <div class="product-card">
+        <img src="images/air pump.png" alt="Portable Pressure Electric Air Pump" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Portable Electric Air Pump</h3>
+          <p class="product-description">High-pressure pump for inflatables, air beds, and sports equipment.</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/89Njcwb">Buy Now</button>
+        </div>
+      </div>
+
+      <!-- Product Card -->
+      <div class="product-card">
+        <img src="images/51bxC0UlXCL._SL1500_.jpg" alt="4-in-1 Travel Bottle set" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">4-in-1 Travel Bottle Set</h3>
+          <p class="product-description">Leak-proof silicone bottles perfect for toiletries during travel.</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/5vgkXXI">Buy Now</button>
+        </div>
+      </div>
+
+      <!-- Product Card -->
+      <div class="product-card">
+        <img src="images/1000187200-Picsart-AiImageEnhancer.png" alt="Gym/Traveling Bag" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Gym/Traveling Bag</h3>
+          <p class="product-description">Durable and spacious bag with multiple compartments for all your needs.</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/72YB7vf">Buy Now</button>
+        </div>
+      </div>
+
+      <!-- Product Card -->
+      <div class="product-card">
+        <img src="images/swimming pool.png" alt="Inflatable swimming pool" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Inflatable Swimming Pool</h3>
+          <p class="product-description">Large family-sized pool perfect for summer fun in your backyard.</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/3E9gOX2">Buy Now</button>
+        </div>
+      </div>
+
+      <!-- Product Card -->
+      <div class="product-card">
+        <img src="images/tep.jpg" alt="Anti-skid Tape" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Anti-skid Tape</h3>
+          <p class="product-description">High-grip safety tape for stairs, ramps, and slippery surfaces.</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/8ORSCXY">Buy Now</button>
+        </div>
+      </div>
+
+      <!-- Product Card -->
+      <div class="product-card">
+        <img src="images/picnic met.png" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Picnic Mat</h3>
+          <p class="product-description">Waterproof and comfortable mat for outdoor picnics and camping.</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/4b4jLLG">Buy Now</button>
+        </div>
+      </div>
+
+            <div class="product-card">
+        <img src="images/car backseat storage bag.jpg" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Car seat storage</h3>
+          <p class="product-description">Stay organized on-the-go with our sleek car seat storage solution – quick access to must-haves!</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/dcYQFKf">Buy Now</button>
+        </div>
+      </div>
+
+         <div class="product-card">
+        <img src="images/pill dispencer.jpg" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Pill Dispencer</h3>
+          <p class="product-description">Convenient pill dispenser for easy and organized daily medication management.
+</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/atuRtlV">Buy Now</button>
+        </div>
+      </div>
+
+            <div class="product-card">
+        <img src="images/makeup kit.jpg" alt="Inflatable swimming pool" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Make-up brush</h3>
+          <p class="product-description">All-in-one makeup kit for a complete, flawless beauty look anytime, anywhere.
+</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/g1H6Q2d">Buy Now</button>
+        </div>
+      </div>
+
+            <div class="product-card">
+        <img src="images/helping handle.jpg" alt="Inflatable swimming pool" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Helping handle</h3>
+          <p class="product-description">Sturdy helping handle kit for extra support and safety in bathrooms or slippery areas.
+</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/2Ux7GIP">Buy Now</button>
+        </div>
+      </div>
+
+                  <div class="product-card">
+        <img src="images/IMG_20250624_123906.png" alt="Inflatable swimming pool" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">LED Camping lamp</h3>
+          <p class="product-description">Bright and portable LED camping lamp for reliable outdoor lighting anywhere.
+
+</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn">Buy Now</button>
+        </div>
+      </div>
+
+               <div class="product-card">
+        <img src="images/electric water heater.png" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Electric water heater</h3>
+          <p class="product-description">Instant electric water heater for quick and efficient hot water anytime.
+
+</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/eAO17N4">Buy Now</button>
+        </div>
+      </div>
+
+               <div class="product-card">
+        <img src="images/car dryer.jpg" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Car dryer</h3>
+          <p class="product-description">Powerful car dryer for quick and effortless drying after every wash.
+
+</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/6j1xw4H">Buy Now</button>
+        </div>
+      </div>
+
+                     <div class="product-card">
+        <img src="images/vaccum.png" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Vaccum</h3>
+          <p class="product-description">High-power vacuum cleaner for effortless and deep home cleaning.
+
+
+</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/iwGeAyi">Buy Now</button>
+        </div>
+      </div>
+
+                           <div class="product-card">
+        <img src="images/bottle.png" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Nice bottle</h3>
+          <p class="product-description">Stylish 400ml bottle, perfect for carrying water, juice, or coffee on the go.
+</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/9HUAKm2">Buy Now</button>
+        </div>
+      </div>
+                   <div class="product-card">
+        <img src="images/31+LIfH7iaL._SS100_.jpg" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Oil bottle</h3>
+          <p class="product-description">Durable and leak-proof oil bottle for clean and easy kitchen dispensing.
+
+</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/eApMCMi">Buy Now</button>
+        </div>
+      </div>
+
+                  <div class="product-card">
+        <img src="images/OIP.jpeg" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Whiskey stones</h3>
+          <p class="product-description"> Reusable Ice Cubes, Whiskey Chilling Stones, Stainless Steel Metal Beverage Chilling Rocks.</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/jbBfONW">Buy Now</button>
+        </div>
+      </div>
+
+                        <div class="product-card">
+        <img src="images/OIP (1).jpeg" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Dummy camera</h3>
+          <p class="product-description"> CCTV Dome Camera with Realistic Look Flashing Red LED Light Indoor and Outdoor Use.</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/9qBjXIh">Buy Now</button>
+        </div>
+      </div>
+
+                              <div class="product-card">
+        <img src="images/download.jpeg" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Adjustable safety belt</h3>
+          <p class="product-description"> Adjustable Hands Free 4 in 1 Safety Belt/Child Safety Strip/Sling/Back.</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/6xPOxgv">Buy Now</button>
+        </div>
+      </div>
+
+
+                                    <div class="product-card">
+        <img src="images/download (1).jpeg" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Migraine Relief Cap</h3>
+          <p class="product-description"> Migraine Relief Cap for Migraines, Headaches, Sinuses, Tension Relief Headache Relief Cap for Men & Women Hot and Cold Therapy Relaxing Thermax Migraine Cap, Migrane Relaxing Cap.</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/iDwj9Tg">Buy Now</button>
+        </div>
+      </div>
+
+
+                                    <div class="product-card">
+        <img src="images/download (2).jpeg" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Water Play Mat</h3>
+          <p class="product-description">Baby Kids Water Play Mat Toys Inflatable Tummy Time Leakproof Water Play Mat, Fun Activity Play Center Indoor and Outdoor Water Play Mat for Baby.</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/b4FvXM8">Buy Now</button>
+        </div>
+      </div>
+
+                                  <div class="product-card">
+        <img src="images/images.jpeg" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Egg Gel Seat Cushion</h3>
+          <p class="product-description">Breathable Gel Cushion Chair Pads with Non-Slip Cover for Home Office Car Wheelchair, Honeycomb Design.</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/ckt3FsF">Buy Now</button>
+        </div>
+      </div>
+
+                                        <div class="product-card">
+        <img src="images/download (3).jpeg" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Manual Fruit Juicer</h3>
+          <p class="product-description">Heavy Duty Lever for Citrus, Orange, Lime or Grapefruit Juicer, Aluminium, Silver Color</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/eGMVSSQ">Buy Now</button>
+        </div>
+      </div>
+
+                                              <div class="product-card">
+        <img src="images/download (4).jpeg" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Long Non-Slip Floor Mat </h3>
+          <p class="product-description"> Kitchen, Super Absorbent Floor Mat, Water and Oil Absorbent Rug for Home, Washable Quick Drying Kitchen Rugs</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/aXNF38K">Buy Now</button>
+        </div>
+      </div>
+
+                                                    <div class="product-card">
+        <img src="images/download (5).jpeg" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Instant Hot Water Faucet </h3>
+          <p class="product-description"> Instant Hot Water Faucet with LED Temp Display,Compact Electric Heating Tap,2-in-1 Water Heater for Kitchen & Bathroom,Easy Install.</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/6Gszq0k">Buy Now</button>
+        </div>
+      </div>
+
+                                                    <div class="product-card">
+        <img src="images/download (6).jpeg" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title"> Reusable Sticky Earwax </h3>
+          <p class="product-description"> Removal Kit, Earwax Remover Soft Silicone, Sticky Ear Sticks Sticky Ear Cleaning Tool, Efficient Quick Way Remove Ear Wax for Ear Cleaning</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/2u99hgx">Buy Now</button>
+        </div>
+      </div>
+
+                                                    <div class="product-card">
+        <img src="images/download (7).jpeg" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Portable Juice Bottle </h3>
+          <p class="product-description"> Personal USB Rechargeable Mini Shipper for Shakes and Smoothies Fresh Fruit Electric Mixer for Trave Gym, Office and Sports 340ML</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/gfjitqR">Buy Now</button>
+        </div>
+      </div>
+
+                                                    <div class="product-card">
+        <img src="images/download (8).jpeg" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Hip and Pelvis Trainer</h3>
+          <p class="product-description">high Master and Inner Thigh Exercise Equipment Pelvic Floor Exerciser Training Too for Home, Gym, Fitness, Workout, Stretcher for Men & Women</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link= "https://amzn.in/d/7KbRyc5">Buy Now</button>
+        </div>
+      </div>
+
+                                                    <div class="product-card">
+        <img src="images/images (1).jpeg" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Grip for Bathroom Safety </h3>
+          <p class="product-description"> Grip Safer Strong Sucker Handle Hand Grip Handrail for Children Old People</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/7wrPbb8">Buy Now</button>
+        </div>
+      </div>
+
+                                                    <div class="product-card">
+        <img src="images/download (9).jpeg" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Hanging Storage Basket </h3>
+          <p class="product-description"> Bedside Caddy Bedside Hanging Storage Basket Multi-Function Organizer Caddy for Bunk and Hospital Beds Dorm Rooms Bed Rails, Can be Placed Glasses Books Mobile Phones Keys.</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/gPnuOm5">Buy Now</button>
+        </div>
+      </div>
+
+                                                    <div class="product-card">
+        <img src="images/download (10).jpeg" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Steel Cash Box</h3>
+          <p class="product-description"> Safe Key Lock | Tiered Money Coin Tray and Bill Slots | Portable and Compact | 4 Keys | Metal Lockable Storage Box for Change, Petty Cash, Cash Box with Money Tray</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/f4FU1wa">Buy Now</button>
+        </div>
+      </div>
+
+                                                    <div class="product-card">
+        <img src="images/download (11).jpeg" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">48V MAX Li-Ion Battery</h3>
+          <p class="product-description">New Cordless Compact Power Tool Batteries All Cordless Power Tools Like Cordless Car Washer, Cordless Drill Machine.</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link="">Buy Now</button>
+        </div>
+      </div>
+
+                                                    <div class="product-card">
+        <img src="images/download (12).jpeg" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Lightweight Camping Sleeping Bag</h3>
+          <p class="product-description"> 4 Season Warm & Cold Backpacking Compression Sleeping Bag for Outdoor Traveling Hiking Mat.</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/29m1ku4">Buy Now</button>
+        </div>
+      </div>
+
+                                                         <div class="product-card">
+        <img src="images/download (13).jpeg" alt="Picnic Mat" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">Moisturizing Heel Socks</h3>
+          <p class="product-description"> 2 Pairs Toeless Socks Gel Lined Spa Socks for Dry Heels Treatment Cracked Heel Repair.</p>
+          <div class="product-price">Joy Enterprises</div>
+          <button class="buy-btn" data-link=" https://amzn.in/d/fQgxc3z">Buy Now</button>
+        </div>
+      </div>
+
+      
+
+
+
+
+    </div>
+
+    <a href="joy.html" class="back-btn">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+  </div>
+
+  <script>
+    // Mobile Menu Toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+    });
+
+    // Buy Now buttons - Redirect to product links
+    document.querySelectorAll('.buy-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const link = button.getAttribute('data-link');
+        if (link) {
+          window.open(link, '_blank');
+        } else {
+          // Default action if no link specified
+          alert('Product added to cart!');
+        }
+      });
+    });
+  </script>
+
+<footer class="footer" id = "footer">
+  <div class="footer-content">
+    <h3 style="margin-bottom: 1rem; font-size: 1.8rem;">Get in Touch</h3>
+    <p><i class="fas fa-phone-alt"></i> Contact Number: <a href="tel:9898798208">+91 9898798208</a></p>
+    <p><i class="fas fa-envelope"></i> Email: <a href="mailto:pavanbarvaliya17022006@gmail.com">pavanbarvaliya17022006@gmail.com</a></p>
+    <p><i class="fas fa-map-marker-alt"></i> Based in Surat, Gujarat, India</p>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook fa-lg"></i></a>
+      <a href="https://www.instagram.com/joy_enterprise1?igsh=MWk1Y2poMHN0cTRnYg=="><i class="fab fa-instagram fa-lg"></i></a>
+      <a href="#"><i class="fab fa-linkedin fa-lg"></i></a>
+    </div>
+    <p class="copyright">&copy; 2018 - 2025 JOY Enterprises. All rights reserved.</p>
+  </div>
+</footer>
+</body>
+</html>
